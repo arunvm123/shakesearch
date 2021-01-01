@@ -104,29 +104,29 @@ func (s *Searcher) Search(query string) []string {
 	idxs := s.Index.search(query)
 	results := []string{}
 	for _, idx := range idxs {
-		results = append(results, s.Join(idx))
+		results = append(results, s.CompleteWorks[idx].Text)
 	}
 	return results
 }
 
-func (s *Searcher) Join(idx int) string {
-	var res string
-	var lowerLimit, upperLimit int
-	if idx > 3 {
-		lowerLimit = idx - 3
-	}
-	if len(s.CompleteWorks)-idx < 3 {
-		upperLimit = len(s.CompleteWorks)
-	} else {
-		upperLimit = idx + 3
-	}
+// func (s *Searcher) Join(idx int) string {
+// 	var res string
+// 	var lowerLimit, upperLimit int
+// 	if idx > 3 {
+// 		lowerLimit = idx - 3
+// 	}
+// 	if len(s.CompleteWorks)-idx < 3 {
+// 		upperLimit = len(s.CompleteWorks)
+// 	} else {
+// 		upperLimit = idx + 3
+// 	}
 
-	for i := lowerLimit; i < upperLimit; i++ {
-		res = res + s.CompleteWorks[i].Text
-	}
+// 	for i := lowerLimit; i < upperLimit; i++ {
+// 		res = res + s.CompleteWorks[i].Text
+// 	}
 
-	return res
-}
+// 	return res
+// }
 
 func tokenize(text string) []string {
 	return strings.FieldsFunc(text, func(r rune) bool {
